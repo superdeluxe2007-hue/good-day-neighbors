@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { SITE, authors } from "../lib/blog-data.js";
+---
+
+<BaseLayout
+  title={`About - ${SITE.name}`}
+  description={`${SITE.name} について: 地域のイベント・セミナーを通じてご近所のつながりを育むコミュニティ団体です。`}
+  canonical="/about"
+>
+  <div class="mx-auto max-w-3xl px-5 py-12">
+    <Breadcrumbs items={[{ label: "トップ", to: "/" }, { label: "About" }]} />
+
+    <header class="mt-6">
+      <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">About</div>
+      <h1 class="mt-2 font-serif text-5xl font-semibold leading-[1.05]">
+        ご近所と、いい一日を。
+      </h1>
+    </header>
+
+    <div class="prose-article mt-10">
+      <p>
+        {SITE.name} は、「いい一日は、ご近所から」を合言葉に活動する地域コミュニティ団体です。有志の住民数名が近隣の公園で開いた小さな交流会から始まりました。
+      </p>
+      <p>
+        現在はイベントやセミナーを通じて、世代や立場を越えて住民同士が自然につながる場をつくっています。活動は非営利で、参加費は原則無料です。
+      </p>
+      <h2 id="what-we-publish">活動内容</h2>
+      <p>
+        季節ごとのマルシェや交流会、暮らしに役立つセミナー、地域清掃などの活動を行っています。イベントの様子やお知らせは<a href="/blog">イベント一覧</a>で随時更新しています。
+      </p>
+      <h2 id="who-we-are">大切にしていること</h2>
+      <p>つながる、学び合う、支え合う。この3つを大切に、無理のない範囲で続けられる活動を目指しています。</p>
+      <h2 id="history">沿革</h2>
+      <ul>
+        <li>2021年 — 有志の住民数名で発足。近隣の公園で小さな交流会を開催。</li>
+        <li>2022年 — 定期セミナーを開始。季節ごとのマルシェイベントを立ち上げ。</li>
+        <li>2024年 — 活動エリアを拡大し、多世代交流プログラムを追加。</li>
+        <li>2026年 — 参加者数が延べ1,000人を突破。</li>
+      </ul>
+    </div>
+
+    <section class="mt-12 border-t border-border pt-10">
+      <h2 class="font-serif text-2xl font-semibold">運営メンバー</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          authors.map((author) => (
+            <a href={`/authors/${author.slug}`} class="group flex items-start gap-3">
+              <img src={author.avatar} alt="" width="48" height="48" class="h-12 w-12 rounded-full" />
+              <div>
+                <div class="font-serif text-base font-semibold group-hover:text-primary">{author.name}</div>
+                <div class="mt-1 text-sm text-muted-foreground">{author.bio}</div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

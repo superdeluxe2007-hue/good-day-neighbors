@@ -1,0 +1,24 @@
+{
+  "name": "good-day-neighbors",
+  "version": "1.0.0",
+  "description": "Good Day Neighbors のコミュニティサイト（quietpages テーマをベースに構築）。",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/prune-unused-assets.mjs",
+    "preview": "astro preview",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.0",
+    "@tailwindcss/vite": "^4.3.1",
+    "astro": "^7.0.4",
+    "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "vite": "^8.1.2"
+  }
+}
