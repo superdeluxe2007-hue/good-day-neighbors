@@ -6,7 +6,7 @@ import { SITE, authors } from "../lib/blog-data.js";
 
 <BaseLayout
   title={`About - ${SITE.name}`}
-  description={`${SITE.name} について: 地域のイベント・セミナーを通じてご近所のつながりを育むコミュニティ団体です。`}
+  description={`${SITE.name} について: 福山市・中央公園を拠点に、学びと憩いの公園を目指す地域コミュニティ団体です。`}
   canonical="/about"
 >
   <div class="mx-auto max-w-3xl px-5 py-12">
@@ -15,34 +15,39 @@ import { SITE, authors } from "../lib/blog-data.js";
     <header class="mt-6">
       <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">About</div>
       <h1 class="mt-2 font-serif text-5xl font-semibold leading-[1.05]">
-        ご近所と、いい一日を。
+        良き日常の隣人たち。
       </h1>
     </header>
 
     <div class="prose-article mt-10">
       <p>
-        {SITE.name} は、「いい一日は、ご近所から」を合言葉に活動する地域コミュニティ団体です。有志の住民数名が近隣の公園で開いた小さな交流会から始まりました。
+        {SITE.name}（グッドデイネイバーズ）という名前には、「隣にいる人と、普通の毎日を、少しだけ豊かにする」という思いを込めています。福山市の中央公園・Enlee・KOKONを拠点に活動する、地域コミュニティ団体です。
       </p>
+      <h2 id="origin">3つの原点</h2>
       <p>
-        現在はイベントやセミナーを通じて、世代や立場を越えて住民同士が自然につながる場をつくっています。活動は非営利で、参加費は原則無料です。
+        私たちの活動は、3つの光景から影響を受けています。
       </p>
-      <h2 id="what-we-publish">活動内容</h2>
-      <p>
-        季節ごとのマルシェや交流会、暮らしに役立つセミナー、地域清掃などの活動を行っています。イベントの様子やお知らせは<a href="/blog">イベント一覧</a>で随時更新しています。
-      </p>
-      <h2 id="who-we-are">大切にしていること</h2>
-      <p>つながる、学び合う、支え合う。この3つを大切に、無理のない範囲で続けられる活動を目指しています。</p>
-      <h2 id="history">沿革</h2>
       <ul>
-        <li>2021年 — 有志の住民数名で発足。近隣の公園で小さな交流会を開催。</li>
-        <li>2022年 — 定期セミナーを開始。季節ごとのマルシェイベントを立ち上げ。</li>
-        <li>2024年 — 活動エリアを拡大し、多世代交流プログラムを追加。</li>
-        <li>2026年 — 参加者数が延べ1,000人を突破。</li>
+        <li>映画『ビッグ・フィッシュ』に登場する町・スペクター — 時間がゆっくり流れ、誰もが顔見知りで、普通の日常が奇跡のように美しい理想郷</li>
+        <li>グッドネイバーズ・ジャンボリー（鹿児島の廃校発「だれも取り残さない文化祭」）— 音楽家・坂口修一郎さんの「BE A GOOD NEIGHBOR」という思想。小さく始めて、続けることで文化にする</li>
+        <li>「虹と光の広場」— 中央公園の芝生を活用するプロジェクトで描いた未来像。使われない空間を、光と虹と人のつながりで生きた場所に変える</li>
       </ul>
+      <h2 id="vision">ビジョン：学びと憩いの公園</h2>
+      <p>
+        中央公園に関わる人を増やし、そこで行われる試みの情報が自然と集まる場所にしていく。子どもイベント、ワンちゃんイベント、クリスマスマーケット、ナイトマルシェ——ジャンルも場所も超えて、福山のまちに良き日常をつくることを目指しています。
+      </p>
+      <h2 id="activities">活動内容</h2>
+      <p>
+        PARK PIZZA PARTY（PPP）、みんなで育てるエディブルパーク、クリスマスマーケット、トークショー企画「クラス」など、季節ごとの企画を中央公園・Enlee・KOKONで開催しています。最新情報は<a href="/blog">イベント一覧</a>で随時更新しています。
+      </p>
+      <h2 id="place-lending">場所貸しについて</h2>
+      <p>
+        中央公園（屋外）・KOKON（屋内、最大40名程度）では、GDNの理念に合い、当日運営を自走できる企画に限って会場とSNS告知を提供しています。ご興味のある方は<a href="/contact">お問い合わせ</a>からご相談ください。
+      </p>
     </div>
 
     <section class="mt-12 border-t border-border pt-10">
-      <h2 class="font-serif text-2xl font-semibold">運営メンバー</h2>
+      <h2 class="font-serif text-2xl font-semibold">体制</h2>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
           authors.map((author) => (
@@ -56,6 +61,9 @@ import { SITE, authors } from "../lib/blog-data.js";
           ))
         }
       </div>
+      <p class="mt-6 text-sm text-muted-foreground">
+        運営: 株式会社SPDX。協力団体としてEnlee（会場・飲食）、umika（エディブルパーク企画）、みっけ（よるみっけ企画）と連携しています。
+      </p>
     </section>
   </div>
 </BaseLayout>

@@ -56,11 +56,11 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     <div class="relative mx-auto flex min-h-[calc(100svh-6rem)] max-w-6xl items-center px-5 py-20 sm:min-h-[680px] sm:py-24">
       <div class="max-w-4xl text-white drop-shadow-[0_1px_18px_rgba(0,0,0,0.28)]">
         <h1 class="font-serif text-[2.5rem] font-medium leading-[1.02] sm:text-6xl lg:text-7xl">
-          ご近所と、
-          <span class="italic text-white">いい一日</span>を。
+          良き日常の
+          <span class="italic text-white">隣人</span>たち。
         </h1>
         <p class="mt-8 max-w-xl text-lg leading-relaxed text-white/86">
-          地域のイベントやセミナーを通じて、近隣住民のつながりを育むコミュニティ団体です。
+          福山市・中央公園を拠点に、学びと憩いの公園を目指す地域コミュニティ団体です。
         </p>
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
@@ -144,6 +144,26 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
           </a>
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="border-b border-border/60">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="font-serif text-2xl font-semibold">拠点</h2>
+      <div class="mt-8 grid gap-8 sm:grid-cols-3">
+        <div>
+          <h3 class="font-serif text-lg font-semibold">中央公園</h3>
+          <p class="mt-2 text-sm text-muted-foreground">福山市の中央公園。PPPやエディブルパークなど、体を動かす系・飲食/マルシェ系のイベントの舞台です。</p>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-semibold">Enlee</h3>
+          <p class="mt-2 text-sm text-muted-foreground">中央公園内のガーデンレストラン。PPPの会場、「クラス」の開催地として連携しています。</p>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-semibold">KOKON</h3>
+          <p class="mt-2 text-sm text-muted-foreground">屋内スペース（最大40名程度）。料理・スイーツ・フラワーなどの教室・セミナー系イベントに向いています。</p>
+        </div>
+      </div>
     </div>
   </section>
 
