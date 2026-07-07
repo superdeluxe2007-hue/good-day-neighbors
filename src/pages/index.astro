@@ -7,6 +7,8 @@ import HowToJoin from "../components/HowToJoin.astro";
 import UpcomingEvents from "../components/UpcomingEvents.astro";
 import Icon from "../components/Icon.astro";
 import autumnScene from "../assets/autumn-scene.webp";
+import enleeInterior from "../assets/locations/enlee.jpg";
+import parkScene from "../assets/locations/park.jpg";
 import {
   SITE,
   categories,
@@ -156,15 +158,40 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
       <h2 class="font-serif text-2xl font-semibold">拠点</h2>
       <div class="mt-8 grid gap-8 sm:grid-cols-3">
         <div>
-          <h3 class="font-serif text-lg font-semibold">中央公園</h3>
+          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
+            <Image
+              src={parkScene}
+              alt="中央公園でのアウトドアイベントの様子"
+              class="h-full w-full object-cover"
+              width={400}
+              widths={[280, 400]}
+              sizes="(min-width: 640px) 30vw, 90vw"
+              format="webp"
+              quality={64}
+            />
+          </div>
+          <h3 class="mt-3 font-serif text-lg font-semibold">中央公園</h3>
           <p class="mt-2 text-sm text-muted-foreground">福山市の中央公園。PPPやエディブルパークなど、体を動かす系・飲食/マルシェ系のイベントの舞台です。</p>
         </div>
         <div>
-          <h3 class="font-serif text-lg font-semibold">Enlee</h3>
+          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
+            <Image
+              src={enleeInterior}
+              alt="Enlee店内の様子"
+              class="h-full w-full object-cover"
+              width={400}
+              widths={[280, 400]}
+              sizes="(min-width: 640px) 30vw, 90vw"
+              format="webp"
+              quality={64}
+            />
+          </div>
+          <h3 class="mt-3 font-serif text-lg font-semibold">Enlee</h3>
           <p class="mt-2 text-sm text-muted-foreground">中央公園内のガーデンレストラン。PPPの会場、「クラス」の開催地として連携しています。</p>
         </div>
         <div>
-          <h3 class="font-serif text-lg font-semibold">KOKON</h3>
+          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted" />
+          <h3 class="mt-3 font-serif text-lg font-semibold">KOKON</h3>
           <p class="mt-2 text-sm text-muted-foreground">屋内スペース（最大40名程度）。料理・スイーツ・フラワーなどの教室・セミナー系イベントに向いています。</p>
         </div>
       </div>
