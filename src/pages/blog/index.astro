@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
+import HowToJoin from "../../components/HowToJoin.astro";
 import Icon from "../../components/Icon.astro";
 import { SITE, categories, sortedPosts, tags } from "../../lib/blog-data.js";
 
@@ -83,6 +84,8 @@ const posts = await sortedPosts();
       <div data-archive-page class="mt-3 text-xs text-muted-foreground"></div>
     </div>
   </div>
+
+  <HowToJoin compact />
 </BaseLayout>
 
 <script>

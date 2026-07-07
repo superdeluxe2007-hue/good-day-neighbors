@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { sortedPosts } from "../lib/blog-data.js";
+import { CONTACT } from "../config/theme.config.ts";
+
+const posts = (await sortedPosts()).slice(0, 4);
+---
+
+<section class="border-t border-border/60 py-16">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 class="font-serif text-2xl font-semibold">Instagramでも発信しています</h2>
+        <p class="mt-2 text-sm text-muted-foreground">{CONTACT.instagramHandle} — イベントの様子や告知はこちらから</p>
+      </div>
+      <a
+        href={CONTACT.instagramUrl}
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-medium hover:border-primary hover:text-primary"
+      >
+        <Icon name="instagram" class="h-4 w-4" /> フォローする
+      </a>
+    </div>
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {
+        posts.map((post) => (
+          <a
+            href={CONTACT.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="group block aspect-square overflow-hidden rounded-md bg-muted"
+            aria-label="Instagramで見る"
+          >
+            {post.thumbnail && (
+              <Image
+                src={post.thumbnail}
+                alt=""
+                width={320}
+                widths={[240, 320, 400]}
+                sizes="(min-width: 640px) 220px, 45vw"
+                format="webp"
+                quality={60}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

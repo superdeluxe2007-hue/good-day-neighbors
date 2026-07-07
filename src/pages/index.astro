@@ -3,6 +3,9 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import Newsletter from "../components/Newsletter.astro";
+import HowToJoin from "../components/HowToJoin.astro";
+import UpcomingEvents from "../components/UpcomingEvents.astro";
+import InstagramFollow from "../components/InstagramFollow.astro";
 import Icon from "../components/Icon.astro";
 import autumnScene from "../assets/autumn-scene.webp";
 import {
@@ -147,6 +150,8 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     </div>
   </section>
 
+  <UpcomingEvents />
+
   <section class="border-b border-border/60">
     <div class="mx-auto max-w-6xl px-5 py-16">
       <h2 class="font-serif text-2xl font-semibold">拠点</h2>
@@ -207,6 +212,8 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     </div>
   </section>
 
+  <HowToJoin />
+  <InstagramFollow />
   <Newsletter />
 </BaseLayout>
 

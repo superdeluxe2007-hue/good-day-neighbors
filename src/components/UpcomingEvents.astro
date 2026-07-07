@@ -1,0 +1,40 @@
+---
+import { upcomingEvents, getCategory, formatDate } from "../lib/blog-data.js";
+
+const events = await upcomingEvents();
+---
+
+{
+  events.length > 0 && (
+    <section class="border-t border-border/60 py-16">
+      <div class="mx-auto max-w-6xl px-5">
+        <h2 class="font-serif text-2xl font-semibold">次の開催予定</h2>
+        <ol class="mt-8 space-y-0">
+          {events.map((event) => {
+            const category = getCategory(event.category);
+            return (
+              <li>
+                <a
+                  href={`/blog/${event.slug}`}
+                  class="group flex flex-col gap-1 border-b border-border/60 py-5 sm:flex-row sm:items-center sm:gap-6"
+                >
+                  <time datetime={event.date} class="w-40 shrink-0 font-serif text-lg font-semibold text-primary">
+                    {formatDate(event.date)}
+                  </time>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="font-medium group-hover:text-primary">{event.title}</span>
+                    {category && (
+                      <span class="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
+                        {category.name}
+                      </span>
+                    )}
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  )
+}

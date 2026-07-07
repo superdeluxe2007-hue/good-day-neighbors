@@ -7,6 +7,7 @@ const author = getAuthor(post.author);
 const category = getCategory(post.category);
 const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
 const thumbnailIsString = typeof post.thumbnail === "string";
+const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
 ---
 
 {
@@ -53,6 +54,27 @@ const thumbnailIsString = typeof post.thumbnail === "string";
           </h2>
         </a>
         <p class="mt-3 text-muted-foreground">{post.excerpt}</p>
+        {
+          (post.venueType || post.fee || post.deadline) && (
+            <div class="mt-3 flex flex-wrap items-center gap-2 text-xs">
+              {post.venueType && (
+                <span class="rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+                  {venueTypeLabel[post.venueType]}
+                </span>
+              )}
+              {post.fee && (
+                <span class="rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+                  {post.fee}
+                </span>
+              )}
+              {post.deadline && (
+                <span class="rounded-full border border-primary/40 px-2.5 py-1 text-primary">
+                  {formatDate(post.deadline)} 締切
+                </span>
+              )}
+            </div>
+          )
+        }
         <div class="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
           {author && (
             <a href={`/authors/${author.slug}`} class="hover:text-foreground">
@@ -149,6 +171,22 @@ const thumbnailIsString = typeof post.thumbnail === "string";
           </h3>
         </a>
         <p class="mt-2 line-clamp-2 text-sm text-muted-foreground">{post.excerpt}</p>
+        {
+          (post.venueType || post.fee) && (
+            <div class="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+              {post.venueType && (
+                <span class="rounded-full border border-border px-2 py-0.5 text-muted-foreground">
+                  {venueTypeLabel[post.venueType]}
+                </span>
+              )}
+              {post.fee && (
+                <span class="rounded-full border border-border px-2 py-0.5 text-muted-foreground">
+                  {post.fee}
+                </span>
+              )}
+            </div>
+          )
+        }
         <div class="mt-3 text-xs text-muted-foreground">
           {author?.name} &middot; 約{post.readingTime}分
         </div>

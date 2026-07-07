@@ -23,6 +23,7 @@ export const normalizePost = (entry) => ({
   ...entry.data,
   date: isoDate(entry.data.date),
   updated: isoDate(entry.data.updated),
+  deadline: isoDate(entry.data.deadline),
   readingTime: entry.data.readingTime ?? estimateReadingTime(entry.body),
 });
 
@@ -56,6 +57,13 @@ export const relatedPosts = async (post, n = 3) =>
       return score(b) - score(a);
     })
     .slice(0, n);
+
+export const upcomingEvents = async () => {
+  const today = isoDate(new Date());
+  return (await posts())
+    .filter((post) => post.category !== "info" && post.date >= today)
+    .sort((a, b) => (a.date > b.date ? 1 : -1));
+};
 
 export const adjacentPosts = async (post) => {
   const sorted = await sortedPosts();

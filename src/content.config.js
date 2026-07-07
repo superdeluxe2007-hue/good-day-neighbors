@@ -34,6 +34,9 @@ const blog = defineCollection({
         .optional(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
+      deadline: z.coerce.date().optional(),
+      venueType: z.enum(["outdoor", "indoor"]).optional(),
+      fee: z.string().optional(),
     }),
 });
 
