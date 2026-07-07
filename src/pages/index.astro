@@ -5,7 +5,6 @@ import PostCard from "../components/PostCard.astro";
 import Newsletter from "../components/Newsletter.astro";
 import HowToJoin from "../components/HowToJoin.astro";
 import UpcomingEvents from "../components/UpcomingEvents.astro";
-import InstagramFollow from "../components/InstagramFollow.astro";
 import Icon from "../components/Icon.astro";
 import autumnScene from "../assets/autumn-scene.webp";
 import {
@@ -213,7 +212,6 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
   </section>
 
   <HowToJoin />
-  <InstagramFollow />
   <Newsletter />
 </BaseLayout>
 
