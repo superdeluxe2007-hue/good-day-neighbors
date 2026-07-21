@@ -1,7 +1,7 @@
 const siteUrl = (
   import.meta.env.SITE_URL ||
   import.meta.env.PUBLIC_SITE_URL ||
-  "https://good-day-neighbors.pages.dev"
+  "https://gdn-fukuyama.com"
 ).replace(/\/$/, "");
 
 export const SITE = {
