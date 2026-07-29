@@ -3,7 +3,7 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 
 const site =
-  process.env.SITE_URL || process.env.PUBLIC_SITE_URL || "https://gdn-fukuyama.com";
+  process.env.SITE_URL || process.env.PUBLIC_SITE_URL || "https://gdnfukuyama.com";
 
 export default defineConfig({
   site,
