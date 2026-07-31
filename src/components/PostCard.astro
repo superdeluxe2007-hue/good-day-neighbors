@@ -76,23 +76,19 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
           )
         }
         <div class="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
-          {author && (
-            <a href={`/authors/${author.slug}`} class="hover:text-foreground">
-              {author.name}
-            </a>
-          )}
+          {author && <span>{author.name}</span>}
           <span>&middot;</span>
           <span>約{post.readingTime}分で読めます</span>
         </div>
       </div>
       {post.thumbnail && (
-        <a href={`/blog/${post.slug}`} class="block" aria-label={`Read ${post.title}`}>
+        <a href={`/blog/${post.slug}`} class="block" aria-label={`${post.title}を読む`}>
           <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted sm:aspect-square">
             {
               thumbnailIsString ? (
                 <img
                   src={post.thumbnail}
-                  alt=""
+                  alt={post.thumbnailAlt}
                   width="440"
                   height="330"
                   loading="lazy"
@@ -101,7 +97,7 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
               ) : (
                 <Image
                   src={post.thumbnail}
-                  alt=""
+                  alt={post.thumbnailAlt}
                   loading="lazy"
                   width={440}
                   widths={[320, 440, 640]}
@@ -126,13 +122,13 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
       hidden={hidden}
     >
       {post.thumbnail && (
-        <a href={`/blog/${post.slug}`} class="block" aria-label={`Read ${post.title}`}>
+        <a href={`/blog/${post.slug}`} class="block" aria-label={`${post.title}を読む`}>
           <div class="aspect-[16/10] overflow-hidden rounded-md bg-muted">
             {
               thumbnailIsString ? (
                 <img
                   src={post.thumbnail}
-                  alt=""
+                  alt={post.thumbnailAlt}
                   width="640"
                   height="400"
                   loading="lazy"
@@ -141,7 +137,7 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
               ) : (
                 <Image
                   src={post.thumbnail}
-                  alt=""
+                  alt={post.thumbnailAlt}
                   loading="lazy"
                   width={480}
                   widths={[320, 384, 480, 640]}

@@ -36,6 +36,8 @@ const blog = defineCollection({
       draft: z.boolean().default(false),
       deadline: z.coerce.date().optional(),
       venueType: z.enum(["outdoor", "indoor"]).optional(),
+      // 記事本文に会場が明記されている場合のみ設定する。Event 構造化データの出力条件を兼ねる。
+      venue: z.string().optional(),
       fee: z.string().optional(),
     }),
 });

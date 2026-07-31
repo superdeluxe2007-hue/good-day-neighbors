@@ -17,6 +17,12 @@ import {
   adjacentPosts,
   normalizePost,
 } from "../../lib/blog-data.js";
+import {
+  graph,
+  organizationSchema,
+  eventSchema,
+  breadcrumbSchema,
+} from "../../lib/structured-data.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog", ({ data }) => !data.draft);
@@ -50,8 +56,7 @@ const socialImage = post.thumbnail
   : undefined;
 const thumbnailUrl = socialImage ? new URL(socialImage.src, SITE.url).toString() : undefined;
 const shareUrl = canonicalUrl;
-const jsonLd = {
-  "@context": "https://schema.org",
+const blogPosting = {
   "@type": "BlogPosting",
   headline: post.title,
   description: post.excerpt,
@@ -59,8 +64,23 @@ const jsonLd = {
   dateModified: post.updated || post.date,
   image: thumbnailUrl,
   author: { "@type": "Person", name: author?.name },
+  publisher: { "@id": `${SITE.url}/#organization` },
   mainEntityOfPage: canonicalUrl,
 };
+// GDN 主催で会場が本文に明記されている企画のみ Event として出力する。
+const isOwnEvent = post.venue && (post.category === "event" || post.category === "class");
+const jsonLd = graph(
+  organizationSchema(),
+  blogPosting,
+  isOwnEvent ? eventSchema(post, { url: canonicalUrl, image: thumbnailUrl }) : null,
+  // 画面上のパンくず（Breadcrumbs コンポーネント）と同じ階層を出力する。
+  breadcrumbSchema([
+    { label: "トップ", to: "/" },
+    { label: "イベント", to: "/blog" },
+    ...(category ? [{ label: category.name, to: `/categories/${category.slug}` }] : []),
+    { label: post.title, to: canonical },
+  ]),
+);
 ---
 
 <BaseLayout
@@ -101,10 +121,10 @@ const jsonLd = {
       <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {
           author && (
-            <a href={`/authors/${author.slug}`} class="flex items-center gap-2 hover:text-foreground">
+            <span class="flex items-center gap-2">
               <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
               {author.name}
-            </a>
+            </span>
           )
         }
         <span>&middot;</span>
@@ -197,9 +217,7 @@ const jsonLd = {
               <img src={author.avatar} alt="" width="56" height="56" class="h-14 w-14 rounded-full" />
               <div>
                 <div class="text-xs uppercase tracking-wider text-muted-foreground">投稿者</div>
-                <a href={`/authors/${author.slug}`} class="font-serif text-lg font-semibold hover:text-primary">
-                  {author.name}
-                </a>
+                <div class="font-serif text-lg font-semibold">{author.name}</div>
                 <p class="mt-1 text-sm text-muted-foreground">{author.bio}</p>
               </div>
             </div>

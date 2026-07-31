@@ -17,23 +17,26 @@ import {
   getCategory,
   formatDate,
 } from "../lib/blog-data.js";
+import { graph, organizationSchema, webSiteSchema } from "../lib/structured-data.js";
 
 const featured = await featuredPost();
 const featuredAuthor = getAuthor(featured.author);
 const featuredCategory = getCategory(featured.category);
 const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slug);
+const jsonLd = graph(organizationSchema(), webSiteSchema());
 ---
 
 <BaseLayout
   title={`${SITE.name} - ご近所と、いい一日を。`}
   description={SITE.description}
   canonical="/"
+  jsonLd={jsonLd}
   flushFooter
 >
   <section class="relative -mt-[calc(4rem+2px)] min-h-[calc(100svh-2rem)] overflow-hidden border-b border-border/60 pt-[calc(4rem+2px)] sm:min-h-[760px]">
     <Image
       src={enleeInterior}
-      alt=""
+      alt="拠点のひとつであるEnleeの店内。窓辺に席が並ぶ明るいスペース。"
       class="absolute inset-0 h-full w-full object-cover object-[center_68%]"
       loading="eager"
       fetchpriority="high"
@@ -88,13 +91,13 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
         <a href="/blog" class="text-xs text-muted-foreground hover:text-foreground">すべて見る &rarr;</a>
       </div>
       <article class="grid gap-10 lg:grid-cols-2">
-        <a href={`/blog/${featured.slug}`} class="group block" aria-label={`Read ${featured.title}`}>
+        <a href={`/blog/${featured.slug}`} class="group block" aria-label={`${featured.title}を読む`}>
           <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
             {
               featured.thumbnail && (
                 <Image
                   src={featured.thumbnail}
-                  alt=""
+                  alt={featured.thumbnailAlt}
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   width={720}
                   widths={[372, 560, 720]}
@@ -135,7 +138,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
                     height="28"
                     class="h-7 w-7 rounded-full"
                   />
-                  <a href={`/authors/${featuredAuthor.slug}`} class="hover:text-foreground">{featuredAuthor.name}</a>
+                  <span>{featuredAuthor.name}</span>
                   <span>&middot;</span>
                 </>
               )

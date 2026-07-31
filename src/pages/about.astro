@@ -2,14 +2,21 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { SITE } from "../lib/blog-data.js";
+import { graph, organizationSchema, breadcrumbSchema } from "../lib/structured-data.js";
 
 const supporters = ["みっけ", "踊るタコライス"];
+const breadcrumbs = [
+  { label: "トップ", to: "/" },
+  { label: "About", to: "/about" },
+];
+const jsonLd = graph(organizationSchema(), breadcrumbSchema(breadcrumbs));
 ---
 
 <BaseLayout
   title={`About - ${SITE.name}`}
   description={`${SITE.name} について: 福山市・中央公園を拠点に、学びと憩いの公園を目指す地域コミュニティ団体です。`}
   canonical="/about"
+  jsonLd={jsonLd}
 >
   <div class="mx-auto max-w-3xl px-5 py-12">
     <Breadcrumbs items={[{ label: "トップ", to: "/" }, { label: "About" }]} />
