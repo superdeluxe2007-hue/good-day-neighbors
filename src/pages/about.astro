@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import { SITE, authors } from "../lib/blog-data.js";
+import { SITE } from "../lib/blog-data.js";
+
+const supporters = ["みっけ", "踊るタコライス"];
 ---
 
 <BaseLayout
@@ -47,23 +49,16 @@ import { SITE, authors } from "../lib/blog-data.js";
     </div>
 
     <section class="mt-12 border-t border-border pt-10">
-      <h2 class="font-serif text-2xl font-semibold">体制</h2>
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <h2 class="font-serif text-2xl font-semibold">協力協賛・サポーターの皆様</h2>
+      <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {
-          authors.map((author) => (
-            <a href={`/authors/${author.slug}`} class="group flex items-start gap-3">
-              <img src={author.avatar} alt="" width="48" height="48" class="h-12 w-12 rounded-full" />
-              <div>
-                <div class="font-serif text-base font-semibold group-hover:text-primary">{author.name}</div>
-                <div class="mt-1 text-sm text-muted-foreground">{author.bio}</div>
-              </div>
-            </a>
+          supporters.map((name) => (
+            <div class="flex items-center justify-center rounded-lg border border-border px-4 py-8 text-center font-serif text-lg font-semibold">
+              {name}
+            </div>
           ))
         }
       </div>
-      <p class="mt-6 text-sm text-muted-foreground">
-        運営: 株式会社SPDX。協力団体としてEnlee（会場・飲食）、umika（エディブルパーク企画）、みっけ（よるみっけ企画）と連携しています。
-      </p>
     </section>
   </div>
 </BaseLayout>
