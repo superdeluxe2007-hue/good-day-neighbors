@@ -1,8 +1,10 @@
 ---
 import "../styles.css";
+import { getImage } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, imageSrc } from "../lib/blog-data.js";
+import defaultOgImage from "../assets/locations/enlee.jpg";
 
 const {
   title = `${SITE.name} - ご近所と、いい一日を。`,
@@ -10,6 +12,7 @@ const {
   canonical,
   ogType = "website",
   ogImage,
+  ogImageAlt = "拠点のひとつであるEnleeの店内。窓辺に席が並ぶ明るいスペース。",
   jsonLd,
   flushFooter = false,
 } = Astro.props;
@@ -26,7 +29,15 @@ const absoluteUrl = (value) => {
   }
 };
 const canonicalUrl = absoluteUrl(canonical || Astro.url.pathname);
-const ogImageUrl = absoluteUrl(ogImage);
+// ページ側で指定がなければ、サイト共通の OGP 画像（トップのヒーローと同じ写真）を使う。
+const fallbackOgImage = await getImage({
+  src: defaultOgImage,
+  width: 1200,
+  height: 630,
+  format: "webp",
+  quality: 78,
+});
+const ogImageUrl = absoluteUrl(ogImage ?? fallbackOgImage.src);
 ---
 
 <!doctype html>
@@ -42,11 +53,21 @@ const ogImageUrl = absoluteUrl(ogImage);
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {
+      ogImageUrl && (
+        <>
+          <meta property="og:image" content={ogImageUrl} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={ogImageAlt} />
+        </>
+      )
+    }
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta name="twitter:image:alt" content={ogImageAlt} />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link

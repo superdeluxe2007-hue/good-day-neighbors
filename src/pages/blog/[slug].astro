@@ -89,6 +89,7 @@ const jsonLd = graph(
   canonical={canonical}
   ogType="article"
   ogImage={socialImage?.src}
+  ogImageAlt={post.thumbnailAlt || post.title}
   jsonLd={jsonLd}
   flushFooter
 >
