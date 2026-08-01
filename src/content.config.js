@@ -38,6 +38,8 @@ const blog = defineCollection({
       venueType: z.enum(["outdoor", "indoor"]).optional(),
       // 記事本文に会場が明記されている場合のみ設定する。Event 構造化データの出力条件を兼ねる。
       venue: z.string().optional(),
+      // 会期のあるイベントの最終日。Event の endDate として出力する。
+      endDate: z.coerce.date().optional(),
       fee: z.string().optional(),
     }),
 });

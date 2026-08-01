@@ -24,6 +24,7 @@ export const normalizePost = (entry) => ({
   date: isoDate(entry.data.date),
   updated: isoDate(entry.data.updated),
   deadline: isoDate(entry.data.deadline),
+  endDate: isoDate(entry.data.endDate),
   readingTime: entry.data.readingTime ?? estimateReadingTime(entry.body),
 });
 

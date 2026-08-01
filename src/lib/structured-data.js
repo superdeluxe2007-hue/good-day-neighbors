@@ -59,6 +59,7 @@ export const eventSchema = (post, { url, image } = {}) => ({
   name: post.title,
   description: post.excerpt,
   startDate: post.date,
+  ...(post.endDate ? { endDate: post.endDate } : {}),
   eventStatus: "https://schema.org/EventScheduled",
   eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   location: {
