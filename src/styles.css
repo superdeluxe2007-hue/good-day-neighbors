@@ -186,18 +186,19 @@
     color: var(--color-foreground);
   }
 
+  /* ヒーローがベタ塗りの明るい背景になったため、ヘッダーは通常配色を使う。 */
   [data-home-header] .home-header-link {
-    color: rgb(255 255 255 / 0.78);
+    color: var(--color-muted-foreground);
     transition: color 150ms ease;
   }
 
   [data-home-header] .home-header-brand {
-    color: rgb(255 255 255);
+    color: var(--color-foreground);
   }
 
   [data-home-header] .home-header-link:hover,
   [data-home-header] .home-header-link.is-active {
-    color: rgb(255 255 255);
+    color: var(--color-foreground);
   }
 
   [data-home-header][data-scrolled="true"] .home-header-link,
@@ -218,14 +219,28 @@
   }
 
   [data-home-header] .home-header-action {
-    color: rgb(255 255 255 / 0.78);
+    color: var(--color-muted-foreground);
   }
 
   [data-home-header] .home-header-action:hover,
   [data-home-header] .home-header-action:focus-visible {
-    background-color: rgb(255 255 255 / 0.12);
-    color: rgb(255 255 255);
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
     outline: none;
+  }
+
+  /*
+   * ベタ塗り背景に白地のイラストを重ねるための指定。
+   * 白を背景色に溶かして切り抜きなしで馴染ませる。
+   * ダークモードは色を反転させてから溶かす（黒地に白いイラストとして見せる）。
+   */
+  .flat-illustration {
+    mix-blend-mode: multiply;
+  }
+
+  .dark .flat-illustration {
+    filter: invert(1);
+    mix-blend-mode: screen;
   }
 
   [data-home-header][data-scrolled="true"] .home-header-action,
