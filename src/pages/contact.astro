@@ -8,7 +8,7 @@ import { CONTACT } from "../config/theme.config.ts";
 
 <BaseLayout
   title={`Contact - ${SITE.name}`}
-  description={`${SITE.name} へのお問い合わせ・イベントのご予約はInstagramまたは公式LINEから。`}
+  description={`${SITE.name} へのお問い合わせ・イベントのご予約はGDN公式LINEから承ります。`}
   canonical="/contact"
 >
   <div class="mx-auto max-w-2xl px-5 py-12">
@@ -18,7 +18,7 @@ import { CONTACT } from "../config/theme.config.ts";
       <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Contact</div>
       <h1 class="mt-2 font-serif text-5xl font-semibold">お問い合わせ</h1>
       <p class="mt-4 max-w-xl text-muted-foreground">
-        イベントのご予約・ご質問は、InstagramまたはGDN公式LINEからお願いします。
+        イベントのご予約・ご質問は、<strong class="font-semibold text-foreground">GDN公式LINE</strong>から承ります。最新情報の発信はInstagramで行っています。
       </p>
     </header>
 
@@ -32,7 +32,7 @@ import { CONTACT } from "../config/theme.config.ts";
         <Icon name="instagram" class="h-6 w-6" />
         <div>
           <div class="font-serif text-lg font-semibold">Instagram</div>
-          <div class="text-sm text-muted-foreground">{CONTACT.instagramHandle} — イベント告知・予約導線はこちら</div>
+          <div class="text-sm text-muted-foreground">{CONTACT.instagramHandle} — イベントの告知・活動の様子はこちら</div>
         </div>
         <Icon name="arrow-right" class="ml-auto h-4 w-4" />
       </a>
@@ -46,28 +46,17 @@ import { CONTACT } from "../config/theme.config.ts";
         <Icon name="line" class="h-6 w-6" />
         <div>
           <div class="font-serif text-lg font-semibold">GDN公式LINE</div>
-          <div class="text-sm text-muted-foreground">イベントに関するご質問はこちらへ</div>
+          <div class="text-sm text-muted-foreground">お問い合わせ・ご予約はこちらから</div>
         </div>
         <Icon name="arrow-right" class="ml-auto h-4 w-4" />
       </a>
 
-      <a
-        href={`mailto:${CONTACT.email}`}
-        class="flex items-center gap-4 rounded-md border border-border p-5 transition-colors hover:border-primary hover:text-primary"
-      >
-        <Icon name="mail" class="h-6 w-6" />
-        <div>
-          <div class="font-serif text-lg font-semibold">メール</div>
-          <div class="text-sm text-muted-foreground">{CONTACT.email}</div>
-        </div>
-        <Icon name="arrow-right" class="ml-auto h-4 w-4" />
-      </a>
     </div>
 
     <div class="mt-10 rounded-md border border-dashed border-border p-6">
       <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">場所貸しについて</div>
       <p class="mt-2 text-sm text-muted-foreground">
-        中央公園・KOKONでのイベント開催にご興味のある方は、まずはInstagramまたは公式LINEよりご相談ください。GDNの理念に合うか、当日運営を自走できるかを踏まえてご案内します。
+        中央公園・KOKONでのイベント開催にご興味のある方は、まずはGDN公式LINEよりご相談ください。GDNの理念に合うか、当日運営を自走できるかを踏まえてご案内します。
       </p>
     </div>
   </div>

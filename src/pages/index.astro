@@ -5,6 +5,7 @@ import PostCard from "../components/PostCard.astro";
 import Newsletter from "../components/Newsletter.astro";
 import HowToJoin from "../components/HowToJoin.astro";
 import UpcomingEvents from "../components/UpcomingEvents.astro";
+import Supporters from "../components/Supporters.astro";
 import Icon from "../components/Icon.astro";
 import enleeInterior from "../assets/locations/enlee.jpg";
 import parkScene from "../assets/locations/park.jpg";
@@ -212,6 +213,7 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
     </div>
   </section>
 
+  <Supporters />
   <HowToJoin />
   <Newsletter />
 </BaseLayout>

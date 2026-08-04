@@ -4,7 +4,6 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { SITE } from "../lib/blog-data.js";
 import { graph, organizationSchema, breadcrumbSchema } from "../lib/structured-data.js";
 
-const supporters = ["みっけ", "踊るタコライス"];
 const breadcrumbs = [
   { label: "トップ", to: "/" },
   { label: "About", to: "/about" },
@@ -55,17 +54,5 @@ const jsonLd = graph(organizationSchema(), breadcrumbSchema(breadcrumbs));
       </p>
     </div>
 
-    <section class="mt-12 border-t border-border pt-10">
-      <h2 class="font-serif text-2xl font-semibold">協力協賛・サポーターの皆様</h2>
-      <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {
-          supporters.map((name) => (
-            <div class="flex items-center justify-center rounded-lg border border-border px-4 py-8 text-center font-serif text-lg font-semibold">
-              {name}
-            </div>
-          ))
-        }
-      </div>
-    </section>
   </div>
 </BaseLayout>

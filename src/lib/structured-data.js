@@ -13,7 +13,6 @@ export const organizationSchema = () => ({
   alternateName: "グッドデイネイバーズ",
   url: absolute("/"),
   description: SITE.description,
-  email: CONTACT.email,
   sameAs: [CONTACT.instagramUrl],
   areaServed: {
     "@type": "City",

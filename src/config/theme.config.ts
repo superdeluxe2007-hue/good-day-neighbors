@@ -24,7 +24,6 @@ export const CONTACT = {
   instagramHandle: "@good_day_neighbors",
   instagramUrl: "https://www.instagram.com/good_day_neighbors",
   lineUrl: "https://lin.ee/v8MHmIb",
-  email: "gdn.fukuyama@gmail.com",
 };
 
 export const SOCIAL_LINKS = [
