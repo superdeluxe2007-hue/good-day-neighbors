@@ -4,7 +4,8 @@ import { getImage } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, imageSrc } from "../lib/blog-data.js";
-import defaultOgImage from "../assets/locations/enlee.jpg";
+// scripts/make-og-image.mjs で生成。ブランドの配色やイラストを変えたら作り直す。
+import defaultOgImage from "../assets/og-default.png";
 
 const {
   title = `${SITE.name} - ご近所と、いい一日を。`,
@@ -12,7 +13,7 @@ const {
   canonical,
   ogType = "website",
   ogImage,
-  ogImageAlt = "拠点のひとつであるEnleeの店内。窓辺に席が並ぶ明るいスペース。",
+  ogImageAlt = "Good Day Neighbors のシンボル。淡い水色を背景に、両手を広げたペンギンのイラスト。",
   jsonLd,
   flushFooter = false,
 } = Astro.props;

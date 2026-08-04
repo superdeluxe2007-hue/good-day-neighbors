@@ -1,9 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import { getAuthor, getCategory, formatDate } from "../lib/blog-data.js";
+import { getCategory, formatDate } from "../lib/blog-data.js";
 
 const { post, variant = "default", hidden = false } = Astro.props;
-const author = getAuthor(post.author);
 const category = getCategory(post.category);
 const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
 const thumbnailIsString = typeof post.thumbnail === "string";
@@ -76,7 +75,7 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
           )
         }
         <div class="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
-          {author && <span>{author.name}</span>}
+          <span>{post.organizer}</span>
           <span>&middot;</span>
           <span>約{post.readingTime}分で読めます</span>
         </div>
@@ -184,7 +183,7 @@ const venueTypeLabel = { outdoor: "屋外開催", indoor: "屋内開催" };
           )
         }
         <div class="mt-3 text-xs text-muted-foreground">
-          {author?.name} &middot; 約{post.readingTime}分
+          {post.organizer} &middot; 約{post.readingTime}分
         </div>
       </div>
     </article>

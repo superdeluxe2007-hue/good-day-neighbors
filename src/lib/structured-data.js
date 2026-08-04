@@ -72,7 +72,12 @@ export const eventSchema = (post, { url, image } = {}) => ({
       addressCountry: "JP",
     },
   },
-  organizer: { "@id": `${SITE.url}/#organization` },
+  // 他団体の企画も掲載するため、主催者は記事の organizer をそのまま反映する。
+  // GDN 自身の企画のときだけ、既出の Organization ノードを参照する。
+  organizer:
+    post.organizer === SITE.name
+      ? { "@id": `${SITE.url}/#organization` }
+      : { "@type": "Organization", name: post.organizer },
   ...(image ? { image } : {}),
   ...(url ? { url } : {}),
 });

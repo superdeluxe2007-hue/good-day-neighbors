@@ -14,14 +14,13 @@ import {
   categories,
   featuredPost,
   sortedPosts,
-  getAuthor,
+
   getCategory,
   formatDate,
 } from "../lib/blog-data.js";
 import { graph, organizationSchema, webSiteSchema } from "../lib/structured-data.js";
 
 const featured = await featuredPost();
-const featuredAuthor = getAuthor(featured.author);
 const featuredCategory = getCategory(featured.category);
 const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slug);
 const jsonLd = graph(organizationSchema(), webSiteSchema());
@@ -114,21 +113,8 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
           </a>
           <p class="mt-4 text-lg text-muted-foreground">{featured.excerpt}</p>
           <div class="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
-            {
-              featuredAuthor && (
-                <>
-                  <img
-                    src={featuredAuthor.avatar}
-                    alt=""
-                    width="28"
-                    height="28"
-                    class="h-7 w-7 rounded-full"
-                  />
-                  <span>{featuredAuthor.name}</span>
-                  <span>&middot;</span>
-                </>
-              )
-            }
+            <span>主催: {featured.organizer}</span>
+            <span>&middot;</span>
             <span>約{featured.readingTime}分で読めます</span>
           </div>
           <a href={`/blog/${featured.slug}`} class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">

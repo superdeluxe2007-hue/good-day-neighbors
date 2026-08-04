@@ -20,7 +20,9 @@ const blog = defineCollection({
       readingTime: z.number().int().positive().optional(),
       category: z.string(),
       tags: z.array(z.string()).default([]),
-      author: z.string(),
+      // 記事を書いた個人ではなく、そのイベントの主催団体を表示する。
+      // 他団体のイベントも掲載するため、GDN以外の名前が入りうる。
+      organizer: z.string().default("Good Day Neighbors"),
       thumbnail: image(),
       thumbnailAlt: z.string().default(""),
       imageCredit: z

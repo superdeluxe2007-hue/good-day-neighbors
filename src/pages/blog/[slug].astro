@@ -9,7 +9,6 @@ import Newsletter from "../../components/Newsletter.astro";
 import Icon from "../../components/Icon.astro";
 import {
   SITE,
-  getAuthor,
   getCategory,
   getTag,
   formatDate,
@@ -31,8 +30,9 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const post = normalizePost(entry);
-const author = getAuthor(post.author);
 const category = getCategory(post.category);
+// GDN 自身の企画か、他団体の企画を紹介しているかで文面と構造化データを切り替える。
+const isOwnEvent = post.organizer === SITE.name;
 const { Content, headings } = await render(entry);
 const toc = headings
   .filter((heading) => heading.depth === 2 || heading.depth === 3)
@@ -63,16 +63,17 @@ const blogPosting = {
   datePublished: post.date,
   dateModified: post.updated || post.date,
   image: thumbnailUrl,
-  author: { "@type": "Person", name: author?.name },
+  // 記事を書いているのはサイト運営者である GDN。主催団体とは別。
+  author: { "@id": `${SITE.url}/#organization` },
   publisher: { "@id": `${SITE.url}/#organization` },
   mainEntityOfPage: canonicalUrl,
 };
-// GDN 主催で会場が本文に明記されている企画のみ Event として出力する。
-const isOwnEvent = post.venue && (post.category === "event" || post.category === "class");
+// 会場が本文に明記されている企画のみ Event として出力する。
+const isEvent = post.venue && (post.category === "event" || post.category === "class");
 const jsonLd = graph(
   organizationSchema(),
   blogPosting,
-  isOwnEvent ? eventSchema(post, { url: canonicalUrl, image: thumbnailUrl }) : null,
+  isEvent ? eventSchema(post, { url: canonicalUrl, image: thumbnailUrl }) : null,
   // 画面上のパンくず（Breadcrumbs コンポーネント）と同じ階層を出力する。
   breadcrumbSchema([
     { label: "トップ", to: "/" },
@@ -121,12 +122,7 @@ const jsonLd = graph(
       <p class="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">{post.excerpt}</p>
       <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {
-          author && (
-            <span class="flex items-center gap-2">
-              <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
-              {author.name}
-            </span>
-          )
+          <span>主催: {post.organizer}</span>
         }
         <span>&middot;</span>
         <time datetime={post.date}>{formatDate(post.date)}</time>
@@ -212,18 +208,17 @@ const jsonLd = graph(
           </button>
         </div>
 
-        {
-          author && (
-            <div class="mt-10 flex items-start gap-4 rounded-md border border-border p-5">
-              <img src={author.avatar} alt="" width="56" height="56" class="h-14 w-14 rounded-full" />
-              <div>
-                <div class="text-xs uppercase tracking-wider text-muted-foreground">投稿者</div>
-                <div class="font-serif text-lg font-semibold">{author.name}</div>
-                <p class="mt-1 text-sm text-muted-foreground">{author.bio}</p>
-              </div>
-            </div>
-          )
-        }
+        <div class="mt-10 rounded-md border border-border p-5">
+          <div class="text-xs uppercase tracking-wider text-muted-foreground">主催</div>
+          <div class="mt-1 font-serif text-lg font-semibold">{post.organizer}</div>
+          <p class="mt-1 text-sm text-muted-foreground">
+            {
+              isOwnEvent
+                ? "Good Day Neighbors が主催する企画です。"
+                : `${post.organizer} が主催する企画を、Good Day Neighbors が紹介しています。最新の情報は主催者の発表をご確認ください。`
+            }
+          </p>
+        </div>
 
         <nav class="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
           {
