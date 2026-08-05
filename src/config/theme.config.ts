@@ -63,6 +63,7 @@ export const categories = [
   { slug: "event", name: "イベント" },
   { slug: "class", name: "クラス" },
   { slug: "info", name: "お知らせ" },
+  { slug: "report", name: "開催レポート" },
 ];
 
 export const tags = [
