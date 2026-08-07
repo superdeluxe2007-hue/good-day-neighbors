@@ -1,0 +1,4 @@
+# Cloudflare Pages のリダイレクト設定。
+# チラシやSNSのプロフィールに載せる短いURLを、申込フォームへ転送する。
+# フォームを作り直した場合は、この転送先だけ差し替えれば掲載済みのURLはそのまま使える。
+/apply  https://docs.google.com/forms/d/e/1FAIpQLSdPqg7XV1TNMPoh2wKG0oerxjwKueEf0BhYeDzbpAnWeIb7nw/viewform  302

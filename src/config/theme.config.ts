@@ -27,7 +27,8 @@ export const CONTACT = {
   lineUrl: "https://lin.ee/v8MHmIb",
   // 出店・レンタルの申込フォーム（Googleフォーム）。
   // 発行後、ここのURLを差し替えるだけでサイト全体に反映される。
-  applyFormUrl: "",
+  applyFormUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLSdPqg7XV1TNMPoh2wKG0oerxjwKueEf0BhYeDzbpAnWeIb7nw/viewform",
 };
 
 export const SOCIAL_LINKS = [
