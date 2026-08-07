@@ -1,0 +1,219 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import PostCard from "../components/PostCard.astro";
+import Icon from "../components/Icon.astro";
+import { SITE, postsByCategory } from "../lib/blog-data.js";
+import { CONTACT } from "../config/theme.config.ts";
+import { graph, organizationSchema, breadcrumbSchema } from "../lib/structured-data.js";
+
+// 実績として見ていただくため、開催レポートを新しい順に並べる。
+const reports = await postsByCategory("report");
+
+const breadcrumbs = [
+  { label: "トップ", to: "/" },
+  { label: "出店・ご利用について", to: "/join" },
+];
+const jsonLd = graph(organizationSchema(), breadcrumbSchema(breadcrumbs));
+
+// テーブル15台・チェア60脚 ＝ 最大15セット
+const MAX_SETS = 15;
+
+const rentalItems = [
+  {
+    name: "テーブル",
+    spec: "幅180cm × 奥行45cm / 樹脂天板・折りたたみ式・屋外対応",
+    price: "1,000円",
+    unit: "1台 / 1日",
+  },
+  {
+    name: "チェア",
+    spec: "木製（アカシア材）折りたたみガーデンチェア / 重量3.5kg",
+    price: "500円",
+    unit: "1脚 / 1日",
+  },
+];
+---
+
+<BaseLayout
+  title={`出店・ご利用について - ${SITE.name}`}
+  description="福山中央公園でのイベント出店、および備品（テーブル・チェア）のレンタルについてご案内します。過去の開催実績・来場者数もあわせてご覧いただけます。"
+  canonical="/join"
+  jsonLd={jsonLd}
+>
+  <div class="mx-auto max-w-3xl px-5 py-12">
+    <Breadcrumbs items={[{ label: "トップ", to: "/" }, { label: "出店・ご利用について" }]} />
+
+    <header class="mt-6">
+      <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">For Partners</div>
+      <h1 class="mt-2 font-serif text-4xl font-semibold leading-[1.15] sm:text-5xl">
+        出店・ご利用について
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-muted-foreground">
+        Good Day Neighbors では、福山中央公園でのイベントに出店していただける方、また公園で何かを始めたい方に向けて、出店の受け入れと備品のレンタルを行っています。
+      </p>
+    </header>
+
+    <div class="prose-article mt-12">
+      <h2 id="about-events">中央公園のイベントについて</h2>
+      <p>
+        私たちは福山中央公園で、夕方から夜にかけてのイベントを開催しています。大型テントの下で飲食・音楽・子ども向けワークショップが同時に楽しめる構成で、来場者は<strong>子ども連れのご家族が中心</strong>です。
+      </p>
+      <p>
+        2026年夏に開催した2回では、それぞれ推計350名・250名の方にお越しいただきました。当日の様子や客層は、下記の開催レポートで写真とあわせてご覧いただけます。
+      </p>
+    </div>
+
+    {
+      reports.length > 0 && (
+        <section class="mt-10">
+          <h2 class="font-serif text-2xl font-semibold">過去の開催レポート</h2>
+          <p class="mt-2 text-sm text-muted-foreground">
+            実際の来場者数・出店内容・当日の様子を掲載しています。
+          </p>
+          <div class="mt-6">
+            {reports.map((post) => (
+              <PostCard post={post} variant="list" />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="mt-14 border-t border-border pt-10">
+      <h2 class="font-serif text-2xl font-semibold">出店をご希望の方へ</h2>
+      <div class="prose-article mt-4">
+        <p>
+          イベントへの出店をご希望の方は、GDN公式LINEよりご相談ください。開催予定・出店料・区画などを個別にご案内します。
+        </p>
+        <p>
+          <strong>出店される方には、会場のテーブルとチェアをご用意しています。</strong>ご自身で運んでいただく必要はありません。当日は商品と什器のみお持ちいただければ出店いただけます。
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-14 border-t border-border pt-10">
+      <h2 class="font-serif text-2xl font-semibold">備品のレンタルについて</h2>
+      <div class="prose-article mt-4">
+        <p>
+          中央公園でイベントや活動をされる方に向けて、テーブルとチェアをお貸ししています。「公園で何かやってみたいけれど、机や椅子をどうしよう」という方にご利用いただければと思っています。
+        </p>
+      </div>
+
+      <h3 class="mt-8 font-serif text-lg font-semibold">レンタル品目</h3>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full min-w-[480px] border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-border text-left">
+              <th class="py-3 pr-4 font-semibold">品目</th>
+              <th class="py-3 pr-4 font-semibold">仕様</th>
+              <th class="py-3 font-semibold whitespace-nowrap">料金</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rentalItems.map((item) => (
+                <tr class="border-b border-border/60">
+                  <td class="py-3 pr-4 font-medium">{item.name}</td>
+                  <td class="py-3 pr-4 text-muted-foreground">{item.spec}</td>
+                  <td class="py-3 whitespace-nowrap">
+                    <span class="font-semibold">{item.price}</span>
+                    <span class="block text-xs text-muted-foreground">{item.unit}</span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout mt-6">
+        <div class="font-serif text-base font-semibold">セットでのお貸し出しとなります</div>
+        <p class="mt-2 text-sm text-muted-foreground">
+          テーブル1台＋チェア4脚を1セットとし、<strong class="text-foreground">1セット 3,000円 / 日</strong>からご利用いただけます。2セット目以降は 2,500円 / 日 です。単品でのお貸し出しは行っておりません。
+        </p>
+        <p class="mt-2 text-sm text-muted-foreground">
+          在庫はテーブル15台・チェア60脚のため、<strong class="text-foreground">最大{MAX_SETS}セット</strong>までご用意できます。
+        </p>
+      </div>
+
+      <h3 class="mt-10 font-serif text-lg font-semibold">保証金について</h3>
+      <div class="prose-article mt-3">
+        <p>
+          お貸し出し時に<strong>保証金 3,000円</strong>をお預かりします（セット数にかかわらず一律）。返却時に破損・著しい汚損がなければ、<strong>全額お返しします</strong>。
+        </p>
+      </div>
+
+      <h3 class="mt-10 font-serif text-lg font-semibold">ご利用条件</h3>
+      <ul class="mt-4 space-y-3 text-sm">
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span><strong>福山中央公園で行うイベント・活動</strong>でのご利用に限ります。</span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span>受け渡し・返却は<strong>ご利用者さまご自身</strong>でお願いしています。配達・回収・設営は行っておりません。</span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span>受け渡し場所は、中央公園に隣接する<strong>Enlee</strong>です。</span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span>原則として<strong>当日中のご返却</strong>をお願いします。</span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span>又貸し（第三者へのお貸し出し）はご遠慮ください。</span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 h-4 w-4 shrink-0 text-primary" />
+          <span>お貸し出し前後に、こちらで状態を確認させていただきます。</span>
+        </li>
+      </ul>
+
+      <h3 class="mt-10 font-serif text-lg font-semibold">破損・紛失について</h3>
+      <div class="prose-article mt-3">
+        <p>
+          木製のチェアは見た目を優先して選んでいるぶん、丁寧に扱っていただく必要があります。破損・紛失があった場合は、下記の金額で実費をご負担いただきます。
+        </p>
+        <ul>
+          <li>チェア 1脚 … 6,000円</li>
+          <li>テーブル 1台 … 13,345円</li>
+        </ul>
+        <p>
+          雨天時の水濡れや、飲食物による汚れについても、状態によってはご相談させていただく場合があります。
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-14 border-t border-border pt-10">
+      <h2 class="font-serif text-2xl font-semibold">お申し込み</h2>
+      <div class="prose-article mt-4">
+        <p>
+          出店・レンタルとも、GDN公式LINEより承っています。以下をお伝えください。内容を確認のうえ、可否とお手続きをご案内します。
+        </p>
+        <ul>
+          <li>ご利用日</li>
+          <li>お名前・団体名</li>
+          <li>ご利用の目的（どのような催しか）</li>
+          <li>必要なセット数（レンタルの場合）</li>
+        </ul>
+      </div>
+
+      <a
+        href={CONTACT.lineUrl}
+        target="_blank"
+        rel="noreferrer"
+        class="mt-6 inline-flex items-center gap-3 rounded-md border border-border px-5 py-4 transition-colors hover:border-primary hover:text-primary"
+      >
+        <Icon name="line" class="h-6 w-6" />
+        <span>
+          <span class="block font-serif text-lg font-semibold">GDN公式LINEで相談する</span>
+          <span class="block text-sm text-muted-foreground">出店・レンタルのお申し込みはこちらから</span>
+        </span>
+        <Icon name="arrow-right" class="ml-auto h-4 w-4" />
+      </a>
+    </section>
+  </div>
+</BaseLayout>

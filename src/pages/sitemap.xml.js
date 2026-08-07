@@ -7,6 +7,7 @@ export async function GET() {
   const entries = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/blog", changefreq: "daily", priority: "0.9" },
+    { path: "/join", changefreq: "monthly", priority: "0.8" },
     { path: "/about", changefreq: "monthly", priority: "0.6" },
     { path: "/contact", changefreq: "monthly", priority: "0.5" },
     ...posts.map((post) => ({

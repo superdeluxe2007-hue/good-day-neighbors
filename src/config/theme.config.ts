@@ -16,6 +16,7 @@ export const SITE = {
 export const NAVIGATION = [
   { to: "/", label: "トップ" },
   { to: "/blog", label: "イベント" },
+  { to: "/join", label: "出店・レンタル" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
