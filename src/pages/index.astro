@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import Newsletter from "../components/Newsletter.astro";
-import HowToJoin from "../components/HowToJoin.astro";
 import UpcomingEvents from "../components/UpcomingEvents.astro";
 import Supporters from "../components/Supporters.astro";
 import Icon from "../components/Icon.astro";
@@ -131,7 +130,6 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
   </section>
 
   <Supporters />
-  <HowToJoin />
   <Newsletter />
 </BaseLayout>
 
