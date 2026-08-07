@@ -7,7 +7,6 @@ import HowToJoin from "../components/HowToJoin.astro";
 import UpcomingEvents from "../components/UpcomingEvents.astro";
 import Supporters from "../components/Supporters.astro";
 import Icon from "../components/Icon.astro";
-import enleeInterior from "../assets/locations/enlee.jpg";
 import parkScene from "../assets/locations/park.jpg";
 import penguin from "../assets/penguin.png";
 import {
@@ -70,44 +69,23 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
   <section class="border-b border-border/60 bg-popover">
     <div class="mx-auto max-w-6xl px-5 py-16">
       <h2 class="font-serif text-2xl font-semibold">拠点</h2>
-      <div class="mt-8 grid gap-8 sm:grid-cols-3">
-        <div>
-          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
-            <Image
-              src={parkScene}
-              alt="中央公園でのアウトドアイベントの様子"
-              class="h-full w-full object-cover"
-              width={400}
-              widths={[280, 400]}
-              sizes="(min-width: 640px) 30vw, 90vw"
-              format="webp"
-              quality={64}
-            />
-          </div>
-          <h3 class="mt-3 font-serif text-lg font-semibold">中央公園</h3>
-          <p class="mt-2 text-sm text-muted-foreground">福山市の中央公園。PPPやエディブルパークなど、体を動かす系・飲食/マルシェ系のイベントの舞台です。</p>
-        </div>
-        <div>
-          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
-            <Image
-              src={enleeInterior}
-              alt="Enlee店内の様子"
-              class="h-full w-full object-cover"
-              width={400}
-              widths={[280, 400]}
-              sizes="(min-width: 640px) 30vw, 90vw"
-              format="webp"
-              quality={64}
-            />
-          </div>
-          <h3 class="mt-3 font-serif text-lg font-semibold">Enlee</h3>
-          <p class="mt-2 text-sm text-muted-foreground">中央公園内のガーデンレストラン。PPPの会場、「クラス」の開催地として連携しています。</p>
-        </div>
-        <div>
-          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted" />
-          <h3 class="mt-3 font-serif text-lg font-semibold">KOKON</h3>
-          <p class="mt-2 text-sm text-muted-foreground">屋内スペース（最大40名程度）。料理・スイーツ・フラワーなどの教室・セミナー系イベントに向いています。</p>
-        </div>
+      <div class="mt-8 overflow-hidden rounded-md bg-muted">
+        <Image
+          src={parkScene}
+          alt="夕暮れの福山中央公園。芝生広場に立てられた大型テントに灯りがともり、園内を人が行き交っている。奥には福山のまちなみが広がる。"
+          class="h-full w-full object-cover"
+          width={1600}
+          widths={[640, 960, 1280, 1600]}
+          sizes="(min-width: 1024px) 1120px, calc(100vw - 40px)"
+          format="webp"
+          quality={72}
+        />
+      </div>
+      <div class="mt-6 max-w-2xl">
+        <h3 class="font-serif text-xl font-semibold">福山中央公園</h3>
+        <p class="mt-3 leading-relaxed text-muted-foreground">
+          福山駅から歩いて行ける、まちなかの芝生広場。PARK PIZZA PARTY やエディブルパーク、クリスマスマーケットなど、私たちの企画はここで開いています。大型テントを立てれば数百人が集まる場所になり、普段は誰でも自由に過ごせる公園です。
+        </p>
       </div>
     </div>
   </section>
