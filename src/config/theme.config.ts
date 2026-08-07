@@ -6,6 +6,9 @@ const siteUrl = (
 
 export const SITE = {
   name: "Good Day Neighbors",
+  // ヘッダーのロゴ表示だけに使う名称。
+  // name はページタイトル・構造化データ・主催者の判定に使うため英字のまま維持する。
+  brandLabel: "グッドデイネイバーズ",
   description: "良き日常の隣人たち。福山市・中央公園を拠点に、学びと憩いの公園を目指す地域コミュニティ団体です。",
   url: siteUrl,
   locale: "ja-JP",
