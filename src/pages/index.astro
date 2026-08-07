@@ -16,14 +16,12 @@ import {
   featuredPost,
   sortedPosts,
 
-  getCategory,
-  formatDate,
 } from "../lib/blog-data.js";
 import { graph, organizationSchema, webSiteSchema } from "../lib/structured-data.js";
 
+// ヒーローの「直近のイベントを見る」リンク先に使う。
 const featured = await featuredPost();
-const featuredCategory = getCategory(featured.category);
-const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slug);
+const latest = await sortedPosts();
 const jsonLd = graph(organizationSchema(), webSiteSchema());
 ---
 
@@ -67,62 +65,6 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
           イベント一覧を見る
         </a>
       </div>
-    </div>
-  </section>
-
-  <section class="border-b border-border/60 bg-popover">
-    <div class="mx-auto max-w-6xl px-5 py-16">
-      <div class="mb-6 flex items-center justify-between">
-        <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">注目</div>
-        <a href="/blog" class="text-xs text-muted-foreground hover:text-foreground">すべて見る &rarr;</a>
-      </div>
-      <article class="grid gap-10 lg:grid-cols-2">
-        <a href={`/blog/${featured.slug}`} class="group block" aria-label={`${featured.title}を読む`}>
-          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
-            {
-              featured.thumbnail && (
-                <Image
-                  src={featured.thumbnail}
-                  alt={featured.thumbnailAlt}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  width={720}
-                  widths={[372, 560, 720]}
-                  sizes="(min-width: 1024px) 560px, calc(100vw - 40px)"
-                  format="webp"
-                  quality={64}
-                />
-              )
-            }
-          </div>
-        </a>
-        <div class="flex flex-col justify-center">
-          <div class="flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
-            {
-              featuredCategory && (
-                <a href={`/categories/${featuredCategory.slug}`} class="inline-flex min-h-9 items-center text-primary hover:underline">
-                  {featuredCategory.name}
-                </a>
-              )
-            }
-            <span>&middot;</span>
-            <time datetime={featured.date}>{formatDate(featured.date)}</time>
-          </div>
-          <a href={`/blog/${featured.slug}`} class="mt-2 block py-1">
-            <h2 class="font-serif text-3xl font-semibold leading-tight hover:text-primary sm:text-4xl">
-              {featured.title}
-            </h2>
-          </a>
-          <p class="mt-4 text-lg text-muted-foreground">{featured.excerpt}</p>
-          <div class="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
-            <span>主催: {featured.organizer}</span>
-            <span>&middot;</span>
-            <span>約{featured.readingTime}分で読めます</span>
-          </div>
-          <a href={`/blog/${featured.slug}`} class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-            詳しく見る <Icon name="arrow-right" class="h-3.5 w-3.5" />
-          </a>
-        </div>
-      </article>
     </div>
   </section>
 
