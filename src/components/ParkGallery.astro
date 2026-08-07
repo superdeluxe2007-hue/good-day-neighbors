@@ -1,0 +1,96 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import park01 from "../assets/locations/park-01.jpg";
+import park02 from "../assets/locations/park-02.jpg";
+import park03 from "../assets/locations/park-03.jpg";
+import park04 from "../assets/locations/park-04.jpg";
+import park05 from "../assets/locations/park-05.jpg";
+
+/**
+ * 拠点（福山中央公園）の写真を横スクロールで見せる。
+ * CSS の scroll-snap だけで動くため JavaScript なしでも操作でき、
+ * 全カットが HTML に含まれるので検索エンジンからも読める。
+ * 矢印ボタンはマウス操作の補助で、無効でもスクロールで閲覧できる。
+ */
+const slides = [
+  { src: park01, alt: "夕暮れの福山中央公園を見下ろした様子。芝生広場の大型テントに灯りがともり、園内を人が行き交っている。奥には福山のまちなみが広がる。", caption: "夕暮れの中央公園。芝生広場にテントが立つ" },
+  { src: park02, alt: "昼間の福山中央公園。広い芝生の奥に、ガーデンレストランと出店のテントが並んでいる。", caption: "普段は誰でも自由に過ごせる芝生広場" },
+  { src: park03, alt: "青空の下、福山中央公園に設営された白い大型テント。木々に囲まれている。", caption: "大型テントを立てれば数百人が集まる場所に" },
+  { src: park04, alt: "芝生の広場でミストを浴びながら遊ぶ親子。奥には公園の木々と建物が見える。", caption: "夏はミストやシャボン玉が子どもの遊び場に" },
+  { src: park05, alt: "日没後の福山中央公園。青い空の下でライトアップされた大型テントが浮かび上がっている。", caption: "日が落ちると、灯りのともる場所になる" },
+];
+---
+
+<div class="mt-8" data-park-gallery>
+  <div
+    data-park-track
+    class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    {
+      slides.map((slide, index) => (
+        <figure class="w-[85%] shrink-0 snap-start sm:w-[58%] lg:w-[46%]">
+          <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              class="h-full w-full object-cover"
+              width={900}
+              widths={[420, 640, 900]}
+              sizes="(min-width: 1024px) 46vw, (min-width: 640px) 58vw, 85vw"
+              format="webp"
+              quality={70}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
+          <figcaption class="mt-2 text-sm text-muted-foreground">{slide.caption}</figcaption>
+        </figure>
+      ))
+    }
+  </div>
+
+  <div class="mt-4 flex items-center gap-2">
+    <button
+      type="button"
+      data-park-prev
+      aria-label="前の写真へ"
+      class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+    >
+      <Icon name="arrow-right" class="h-4 w-4 rotate-180" />
+    </button>
+    <button
+      type="button"
+      data-park-next
+      aria-label="次の写真へ"
+      class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+    >
+      <Icon name="arrow-right" class="h-4 w-4" />
+    </button>
+    <span class="ml-1 text-xs text-muted-foreground">横にスクロールしてご覧いただけます</span>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-park-gallery]").forEach((gallery) => {
+    const track = gallery.querySelector("[data-park-track]");
+    if (!track) return;
+
+    // 1枚ぶんの移動量。カード幅＋余白を実寸から求める。
+    const step = () => {
+      const first = track.querySelector("figure");
+      return first ? first.getBoundingClientRect().width + 16 : track.clientWidth;
+    };
+
+    const scrollByStep = (direction) => {
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      track.scrollBy({ left: step() * direction, behavior: reduce ? "auto" : "smooth" });
+    };
+
+    gallery
+      .querySelector("[data-park-prev]")
+      ?.addEventListener("click", () => scrollByStep(-1));
+    gallery
+      .querySelector("[data-park-next]")
+      ?.addEventListener("click", () => scrollByStep(1));
+  });
+</script>
