@@ -42,6 +42,11 @@ const blog = defineCollection({
       venue: z.string().optional(),
       // 会期のあるイベントの最終日。Event の endDate として出力する。
       endDate: z.coerce.date().optional(),
+      // よくある質問。問い合わせを減らす目的で、記事末尾に表示し
+      // FAQPage 構造化データとしても出力する。
+      faq: z
+        .array(z.object({ q: z.string(), a: z.string() }))
+        .optional(),
       fee: z.string().optional(),
     }),
 });

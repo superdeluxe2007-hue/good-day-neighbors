@@ -81,6 +81,19 @@ export const eventSchema = (post, { url, image } = {}) => ({
   ...(url ? { url } : {}),
 });
 
+/**
+ * よくある質問。記事に表示している内容と同じものだけを出力する。
+ * items は [{ q, a }]。
+ */
+export const faqSchema = (items = []) => ({
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+});
+
 /** 複数スキーマを 1 つの JSON-LD にまとめる。 */
 export const graph = (...nodes) => ({
   "@context": "https://schema.org",

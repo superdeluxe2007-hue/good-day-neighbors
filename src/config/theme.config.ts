@@ -25,6 +25,9 @@ export const CONTACT = {
   instagramHandle: "@good_day_neighbors",
   instagramUrl: "https://www.instagram.com/good_day_neighbors",
   lineUrl: "https://lin.ee/v8MHmIb",
+  // 出店・レンタルの申込フォーム（Googleフォーム）。
+  // 発行後、ここのURLを差し替えるだけでサイト全体に反映される。
+  applyFormUrl: "",
 };
 
 export const SOCIAL_LINKS = [

@@ -19,6 +19,9 @@ const jsonLd = graph(organizationSchema(), breadcrumbSchema(breadcrumbs));
 // テーブル15台・チェア60脚 ＝ 最大15セット
 const MAX_SETS = 15;
 
+// 申込フォームが未設定のあいだは、LINEでの受付にフォールバックする。
+const applyUrl = CONTACT.applyFormUrl;
+
 const rentalItems = [
   {
     name: "テーブル",
@@ -191,29 +194,50 @@ const rentalItems = [
       <h2 class="font-serif text-2xl font-semibold">お申し込み</h2>
       <div class="prose-article mt-4">
         <p>
-          出店・レンタルとも、GDN公式LINEより承っています。以下をお伝えください。内容を確認のうえ、可否とお手続きをご案内します。
+          出店・レンタルとも、申込フォームより承っています。以下をご記入いただくと、内容を確認のうえ、可否とお手続きをご案内します。
         </p>
         <ul>
           <li>ご利用日</li>
-          <li>お名前・団体名</li>
+          <li>お名前・団体名・ご連絡先</li>
           <li>ご利用の目的（どのような催しか）</li>
           <li>必要なセット数（レンタルの場合）</li>
         </ul>
+        <p>
+          フォーム送信後、ご記入いただいたメールアドレス宛に控えが届きます。3営業日以内にこちらからご連絡します。
+        </p>
       </div>
 
-      <a
-        href={CONTACT.lineUrl}
-        target="_blank"
-        rel="noreferrer"
-        class="mt-6 inline-flex items-center gap-3 rounded-md border border-border px-5 py-4 transition-colors hover:border-primary hover:text-primary"
-      >
-        <Icon name="line" class="h-6 w-6" />
-        <span>
-          <span class="block font-serif text-lg font-semibold">GDN公式LINEで相談する</span>
-          <span class="block text-sm text-muted-foreground">出店・レンタルのお申し込みはこちらから</span>
-        </span>
-        <Icon name="arrow-right" class="ml-auto h-4 w-4" />
-      </a>
+      {
+        applyUrl ? (
+          <a
+            href={applyUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="mt-6 inline-flex items-center gap-3 rounded-md border border-foreground bg-foreground px-5 py-4 text-background transition-opacity hover:opacity-85"
+          >
+            <Icon name="check" class="h-6 w-6" />
+            <span>
+              <span class="block font-serif text-lg font-semibold">申込フォームへ進む</span>
+              <span class="block text-sm opacity-80">出店・備品レンタルのお申し込み</span>
+            </span>
+            <Icon name="arrow-right" class="ml-auto h-4 w-4" />
+          </a>
+        ) : (
+          <a
+            href={CONTACT.lineUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="mt-6 inline-flex items-center gap-3 rounded-md border border-border px-5 py-4 transition-colors hover:border-primary hover:text-primary"
+          >
+            <Icon name="line" class="h-6 w-6" />
+            <span>
+              <span class="block font-serif text-lg font-semibold">GDN公式LINEで相談する</span>
+              <span class="block text-sm text-muted-foreground">出店・レンタルのお申し込みはこちらから</span>
+            </span>
+            <Icon name="arrow-right" class="ml-auto h-4 w-4" />
+          </a>
+        )
+      }
     </section>
   </div>
 </BaseLayout>
