@@ -81,9 +81,30 @@ const slides = [
       return first ? first.getBoundingClientRect().width + 16 : track.clientWidth;
     };
 
+    /*
+     * behavior:"smooth" は scroll-snap と競合し、スナップ位置に引き戻されて動かない。
+     * そのため自前で位置を補間する。prefers-reduced-motion のときは即座に移動する。
+     */
     const scrollByStep = (direction) => {
-      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      track.scrollBy({ left: step() * direction, behavior: reduce ? "auto" : "smooth" });
+      const max = track.scrollWidth - track.clientWidth;
+      const from = track.scrollLeft;
+      const to = Math.max(0, Math.min(from + step() * direction, max));
+      if (from === to) return;
+
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        track.scrollLeft = to;
+        return;
+      }
+
+      const start = performance.now();
+      const duration = 320;
+      const tick = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        track.scrollLeft = from + (to - from) * eased;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     };
 
     gallery
