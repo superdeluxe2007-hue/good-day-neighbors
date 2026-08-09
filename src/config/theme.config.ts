@@ -33,7 +33,6 @@ export const NAVIGATION = [
 export const CONTACT = {
   instagramHandle: "@good_day_neighbors",
   instagramUrl: "https://www.instagram.com/good_day_neighbors",
-  lineUrl: "https://lin.ee/v8MHmIb",
   // 出店・レンタルの申込フォーム（Googleフォーム）。
   // 発行後、ここのURLを差し替えるだけでサイト全体に反映される。
   applyFormUrl:
@@ -42,7 +41,6 @@ export const CONTACT = {
 
 export const SOCIAL_LINKS = [
   { href: CONTACT.instagramUrl, label: `${SITE.name} on Instagram`, icon: "instagram" },
-  { href: CONTACT.lineUrl, label: `${SITE.name} 公式LINE`, icon: "line" },
   { href: "/rss.xml", label: "RSS feed", icon: "rss" },
 ];
 

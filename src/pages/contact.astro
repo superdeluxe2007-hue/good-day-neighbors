@@ -8,7 +8,7 @@ import { CONTACT } from "../config/theme.config.ts";
 
 <BaseLayout
   title={`Contact - ${SITE.name}`}
-  description={`${SITE.name} へのお問い合わせ・イベントのご予約はGDN公式LINEから承ります。`}
+  description="Good Day Neighbors の最新情報はInstagramで発信しています。福山中央公園でのイベント出店・備品レンタルのお申し込みもこちらから。"
   canonical="/contact"
 >
   <div class="mx-auto max-w-2xl px-5 py-12">
@@ -18,7 +18,7 @@ import { CONTACT } from "../config/theme.config.ts";
       <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Contact</div>
       <h1 class="mt-2 font-serif text-5xl font-semibold">お問い合わせ</h1>
       <p class="mt-4 max-w-xl text-muted-foreground">
-        イベントのご予約・ご質問は、<strong class="font-semibold text-foreground">GDN公式LINE</strong>から承ります。最新情報の発信はInstagramで行っています。
+        イベントの最新情報はInstagramで発信しています。イベントは予約不要で、当日そのままお越しいただけます。出店・備品レンタルのお申し込みは申込フォームから承ります。
       </p>
     </header>
 
@@ -37,26 +37,31 @@ import { CONTACT } from "../config/theme.config.ts";
         <Icon name="arrow-right" class="ml-auto h-4 w-4" />
       </a>
 
-      <a
-        href={CONTACT.lineUrl}
-        target="_blank"
-        rel="noreferrer"
-        class="flex items-center gap-4 rounded-md border border-border p-5 transition-colors hover:border-primary hover:text-primary"
-      >
-        <Icon name="line" class="h-6 w-6" />
-        <div>
-          <div class="font-serif text-lg font-semibold">GDN公式LINE</div>
-          <div class="text-sm text-muted-foreground">お問い合わせ・ご予約はこちらから</div>
-        </div>
-        <Icon name="arrow-right" class="ml-auto h-4 w-4" />
-      </a>
-
+      {
+        CONTACT.applyFormUrl && (
+          <a
+            href={CONTACT.applyFormUrl}
+            target="_blank"
+            rel="noreferrer"
+            class="flex items-center gap-4 rounded-md border border-border p-5 transition-colors hover:border-primary hover:text-primary"
+          >
+            <Icon name="check" class="h-6 w-6" />
+            <div>
+              <div class="font-serif text-lg font-semibold">出店・備品レンタルのお申し込み</div>
+              <div class="text-sm text-muted-foreground">
+                中央公園でのイベント出店をご希望の方はこちらから
+              </div>
+            </div>
+            <Icon name="arrow-right" class="ml-auto h-4 w-4" />
+          </a>
+        )
+      }
     </div>
 
     <div class="mt-10 rounded-md border border-dashed border-border p-6">
-      <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">場所貸しについて</div>
+      <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">出店・場所のご利用について</div>
       <p class="mt-2 text-sm text-muted-foreground">
-        中央公園・KOKONでのイベント開催にご興味のある方は、まずはGDN公式LINEよりご相談ください。GDNの理念に合うか、当日運営を自走できるかを踏まえてご案内します。
+        福山中央公園でのイベント出店・備品レンタルについては、<a href="/join" class="text-foreground underline underline-offset-2 hover:text-primary">出店・ご利用について</a>のページに条件と料金を掲載しています。
       </p>
     </div>
   </div>
