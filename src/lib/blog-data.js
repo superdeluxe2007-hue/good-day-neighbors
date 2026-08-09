@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-export { SITE, categories, tags } from "../config/theme.config.ts";
+export { SITE, categories, announcementCategories, tags } from "../config/theme.config.ts";
 import { categories, tags } from "../config/theme.config.ts";
 
 const isoDate = (date) => date?.toISOString().slice(0, 10);
@@ -40,6 +40,15 @@ export const postsByTag = async (slug) =>
   (await sortedPosts()).filter((post) => post.tags.includes(slug));
 export const sortedPosts = async () =>
   [...(await posts())].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+/**
+ * 告知・お知らせだけを返す（開催レポートを除く）。
+ * トップとイベント一覧は「これから」を見に来る場所なので、
+ * 終わったことの記録である開催レポートは混ぜない。
+ * レポートは /join（出店・ご利用について）と /categories/report に集約する。
+ */
+export const announcementPosts = async () =>
+  (await sortedPosts()).filter((post) => post.category !== "report");
 /** 会期のある企画は endDate、単日開催は date を終了日とみなす。 */
 const hasEnded = (post) => (post.endDate || post.date) < isoDate(new Date());
 

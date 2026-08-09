@@ -10,16 +10,17 @@ import Icon from "../components/Icon.astro";
 import penguin from "../assets/penguin.png";
 import {
   SITE,
-  categories,
+  announcementCategories,
   featuredPost,
-  sortedPosts,
+  announcementPosts,
 
 } from "../lib/blog-data.js";
 import { graph, organizationSchema, webSiteSchema } from "../lib/structured-data.js";
 
 // ヒーローの「直近のイベントを見る」リンク先に使う。
 const featured = await featuredPost();
-const latest = await sortedPosts();
+// 開催レポートは /join に集約しているため、ここには出さない。
+const latest = await announcementPosts();
 const jsonLd = graph(organizationSchema(), webSiteSchema());
 ---
 
@@ -90,7 +91,7 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
           すべて
         </button>
         {
-          categories.map((category) => (
+          announcementCategories.map((category) => (
             <button
               type="button"
               data-home-filter={category.slug}

@@ -3,9 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Icon from "../../components/Icon.astro";
-import { SITE, categories, sortedPosts, tags } from "../../lib/blog-data.js";
+import { SITE, announcementCategories, announcementPosts, tags } from "../../lib/blog-data.js";
 
-const posts = await sortedPosts();
+// 開催レポートは除く（/join に集約）。
+const posts = await announcementPosts();
 ---
 
 <BaseLayout
@@ -44,7 +45,7 @@ const posts = await sortedPosts();
         <span class="text-xs uppercase tracking-wider text-muted-foreground">カテゴリー</span>
         <a data-category-filter="" href="/blog" class="rounded-full border px-3 py-1 text-xs">すべて</a>
         {
-          categories.map((category) => (
+          announcementCategories.map((category) => (
             <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="rounded-full border px-3 py-1 text-xs">
               {category.name}
             </a>

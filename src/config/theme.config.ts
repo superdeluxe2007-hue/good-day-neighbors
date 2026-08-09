@@ -78,6 +78,15 @@ export const categories = [
   { slug: "report", name: "開催レポート" },
 ];
 
+/**
+ * トップとイベント一覧の絞り込みに出すカテゴリー。
+ * 開催レポートはこれらの一覧に載せていないため、絞り込みからも外す。
+ * （/categories/report ページ自体は残しており、/join から辿れる）
+ */
+export const announcementCategories = categories.filter(
+  (category) => category.slug !== "report",
+);
+
 export const tags = [
   { slug: "ppp", name: "PPP" },
   { slug: "edible-park", name: "エディブルパーク" },
