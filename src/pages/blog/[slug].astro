@@ -15,6 +15,7 @@ import {
   relatedPosts,
   adjacentPosts,
   normalizePost,
+  canonicalPath,
 } from "../../lib/blog-data.js";
 import {
   graph,
@@ -44,7 +45,7 @@ const toc = headings
   }));
 const related = await relatedPosts(post);
 const { prev, next } = await adjacentPosts(post);
-const canonical = post.canonical ?? `/blog/${post.slug}`;
+const canonical = canonicalPath(post.canonical ?? `/blog/${post.slug}`);
 const canonicalUrl = new URL(canonical, SITE.url).toString();
 const socialImage = post.thumbnail
   ? await getImage({

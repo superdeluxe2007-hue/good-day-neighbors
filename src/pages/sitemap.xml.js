@@ -1,4 +1,4 @@
-import { SITE, categories, sortedPosts, tags } from "../lib/blog-data.js";
+import { SITE, categories, sortedPosts, tags, canonicalPath } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
@@ -31,7 +31,8 @@ export async function GET() {
   const urls = entries.map((entry) =>
     [
       "  <url>",
-      `    <loc>${BASE_URL}${entry.path}</loc>`,
+      // スラッシュ無しのURLは 308 でリダイレクトされ、サイトマップとして無効になる
+      `    <loc>${BASE_URL}${canonicalPath(entry.path)}</loc>`,
       entry.lastmod ? `    <lastmod>${entry.lastmod}</lastmod>` : null,
       entry.changefreq ? `    <changefreq>${entry.changefreq}</changefreq>` : null,
       entry.priority ? `    <priority>${entry.priority}</priority>` : null,

@@ -1,4 +1,4 @@
-import { SITE, sortedPosts } from "../lib/blog-data.js";
+import { SITE, sortedPosts, canonicalPath } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
@@ -7,7 +7,7 @@ const esc = (value) =>
 
 export async function GET() {
   const items = (await sortedPosts()).map((post) => {
-    const link = `${BASE_URL}/blog/${post.slug}`;
+    const link = `${BASE_URL}${canonicalPath(`/blog/${post.slug}`)}`;
     return [
       "    <item>",
       `      <title>${esc(post.title)}</title>`,

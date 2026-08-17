@@ -18,6 +18,26 @@ const estimateReadingTime = (text = "") => {
 
 export const imageSrc = (image) => (typeof image === "string" ? image : image?.src);
 
+/**
+ * 正規URLのパスを末尾スラッシュ付きに揃える。
+ *
+ * ホスティングの Cloudflare が `/blog` を 308 で `/blog/` に飛ばすため、
+ * canonical・サイトマップ・RSS がスラッシュ無しを指していると
+ * 「正規ページとして指定されたURLがリダイレクトしている」状態になり、
+ * Google のインデックスから外れる（2026-08-17 Search Console の警告の原因）。
+ * Google に渡すURLは必ずこの関数を通すこと。
+ */
+export const canonicalPath = (path) => {
+  const value = path || "/";
+
+  // 外部URL（http〜）や、/rss.xml のような拡張子付きのファイルはそのまま返す
+  if (!value.startsWith("/")) return value;
+  if (value.endsWith("/")) return value;
+  if (/\.[a-z0-9]+$/i.test(value)) return value;
+
+  return `${value}/`;
+};
+
 export const normalizePost = (entry) => ({
   slug: entry.id,
   ...entry.data,

@@ -3,7 +3,7 @@ import "../styles.css";
 import { getImage } from "astro:assets";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE, imageSrc } from "../lib/blog-data.js";
+import { SITE, imageSrc, canonicalPath } from "../lib/blog-data.js";
 // scripts/make-og-image.mjs で生成。ブランドの配色やイラストを変えたら作り直す。
 import defaultOgImage from "../assets/og-default.png";
 
@@ -29,7 +29,8 @@ const absoluteUrl = (value) => {
     return src;
   }
 };
-const canonicalUrl = absoluteUrl(canonical || Astro.url.pathname);
+// canonicalPath を通して末尾スラッシュを揃える（スラッシュ無しは 308 されるため）
+const canonicalUrl = absoluteUrl(canonicalPath(canonical || Astro.url.pathname));
 // ページ側で指定がなければ、サイト共通の OGP 画像（トップのヒーローと同じ写真）を使う。
 const fallbackOgImage = await getImage({
   src: defaultOgImage,
