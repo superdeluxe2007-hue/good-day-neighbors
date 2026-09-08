@@ -2,8 +2,19 @@
 /**
  * 協力協賛・サポーターの一覧。
  * ロゴ画像が用意できるまでは団体名のテキストで並べる。
+ * instagram を渡すとカードごとリンクになる（アカウント名のみ・@は不要）。
  */
-const { supporters = ["みっけ", "踊るタコライス"] } = Astro.props;
+const {
+  supporters = [
+    { name: "Enlee", instagram: "enlee_fukuyama" },
+    { name: "福山やきそば 村かず", instagram: "murakazu182" },
+    { name: "むべやまの里", instagram: "mubeyamanosato" },
+    { name: "みっけ", instagram: "mikke_keiko" },
+    { name: "踊るタコライス", instagram: "odoru.tacorice" },
+  ],
+} = Astro.props;
+
+const items = supporters.map((s) => (typeof s === "string" ? { name: s } : s));
 ---
 
 <section class="border-b border-border/60 bg-popover">
@@ -11,11 +22,23 @@ const { supporters = ["みっけ", "踊るタコライス"] } = Astro.props;
     <h2 class="font-serif text-2xl font-semibold">協力協賛・サポーターの皆様</h2>
     <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {
-        supporters.map((name) => (
-          <div class="flex items-center justify-center rounded-lg border border-border px-4 py-8 text-center font-serif text-lg font-semibold">
-            {name}
-          </div>
-        ))
+        items.map((item) =>
+          item.instagram ? (
+            <a
+              href={`https://www.instagram.com/${item.instagram}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex flex-col items-center justify-center gap-1.5 rounded-lg border border-border px-4 py-8 text-center transition-colors hover:border-foreground/40 hover:bg-muted"
+            >
+              <span class="font-serif text-lg font-semibold">{item.name}</span>
+              <span class="text-xs text-muted-foreground">@{item.instagram}</span>
+            </a>
+          ) : (
+            <div class="flex items-center justify-center rounded-lg border border-border px-4 py-8 text-center font-serif text-lg font-semibold">
+              {item.name}
+            </div>
+          )
+        )
       }
     </div>
   </div>
