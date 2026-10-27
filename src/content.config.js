@@ -25,6 +25,10 @@ const blog = defineCollection({
       organizer: z.string().default("Good Day Neighbors"),
       thumbnail: image(),
       thumbnailAlt: z.string().default(""),
+      // SNSカード専用の画像。省略すると thumbnail を 1200×630 に中央で切り抜いて使うが、
+      // 縦長のチラシだと日付や会場が画面外に出てしまう。その記事だけここに
+      // 1200×630 で用意した画像を置く。切り抜かずにそのまま使う。
+      ogImage: image().optional(),
       imageCredit: z
         .object({
           caption: z.string().optional(),
