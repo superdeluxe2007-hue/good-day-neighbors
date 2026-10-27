@@ -7,7 +7,8 @@ import UpcomingEvents from "../components/UpcomingEvents.astro";
 import Supporters from "../components/Supporters.astro";
 import ParkGallery from "../components/ParkGallery.astro";
 import Icon from "../components/Icon.astro";
-import penguin from "../assets/penguin.png";
+// クリスマスマーケットの会期までの期間限定。終わったら penguin.png に戻す。
+import heroImage from "../assets/hero-christmas.png";
 import {
   SITE,
   announcementCategories,
@@ -37,15 +38,15 @@ const jsonLd = graph(organizationSchema(), webSiteSchema());
         Good Day Neighbors
       </h1>
       <Image
-        src={penguin}
-        alt="両手を広げたペンギンのイラスト。"
-        class="flat-illustration mt-10 w-full max-w-[300px] sm:max-w-[380px]"
+        src={heroImage}
+        alt="Christmas Market in FUKUYAMA の告知ビジュアル。手描きの鹿のイラストと「クリスマスの余韻を公園で」の文字、12月25日から27日・16時から21時・福山中央公園・入場無料の案内。"
+        class="flat-illustration mt-10 w-full max-w-[560px] sm:max-w-[760px]"
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        width={760}
-        widths={[380, 560, 760]}
-        sizes="(min-width: 640px) 380px, min(300px, 80vw)"
+        width={1520}
+        widths={[760, 1120, 1520]}
+        sizes="(min-width: 640px) 760px, min(560px, 92vw)"
         format="webp"
         quality={88}
       />
