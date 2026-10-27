@@ -89,7 +89,6 @@ export const announcementCategories = categories.filter(
 
 export const tags = [
   { slug: "ppp", name: "PPP" },
-  { slug: "edible-park", name: "エディブルパーク" },
   { slug: "christmas-market", name: "クリスマスマーケット" },
   { slug: "kids", name: "子ども向け" },
   { slug: "talk", name: "トークショー" },
