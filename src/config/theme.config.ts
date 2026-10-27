@@ -66,7 +66,7 @@ export const authors = [
     name: "谷田くん",
     bio: "株式会社umika代表取締役。行政連携・仕組みづくりを担当。",
     longBio:
-      "株式会社umika代表取締役。瀬戸内のシェアキッチン＆アトリエ「リトルセトウチ」の運営者でもある。Good Day Neighborsでは行政連携やエディブルパークの企画・仕組みづくりを担当。",
+      "株式会社umika代表取締役。瀬戸内のシェアキッチン＆アトリエ「リトルセトウチ」の運営者でもある。Good Day Neighborsでは行政連携や企画・仕組みづくりを担当。",
     avatar: "/avatars/samuel-okafor.svg",
   },
 ];
