@@ -134,7 +134,13 @@ const jsonLd = graph(
       >
         {post.title}
       </h1>
-      <p class="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">{post.excerpt}</p>
+      {/* リード文はスマホだけ左揃え。中央揃えのまま6行になると左端がそろわず読みにくい（2026-10-29 実測）。
+          行間は本文と同じ1.75倍にそろえる。PC は従来どおり中央揃え */}
+      <p
+        class="mx-auto mt-5 max-w-2xl text-left text-lg leading-[1.75] text-muted-foreground sm:text-center"
+      >
+        {post.excerpt}
+      </p>
       <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {
           <span>主催: {post.organizer}</span>
