@@ -127,7 +127,11 @@ const jsonLd = graph(
           </a>
         )
       }
-      <h1 class="mt-4 font-serif text-4xl font-semibold leading-[1.1] sm:text-5xl">
+      {/* 日本語の長い見出し対策: 行間1.1倍だと4行が塊に見えた（2026-10-29 実測）。
+          スマホは1文字小さく・行間を広く、PCは従来どおり詰め気味。text-balance で行の長さを揃える */}
+      <h1
+        class="mt-4 font-serif text-3xl font-semibold leading-[1.35] text-balance sm:text-5xl sm:leading-[1.15]"
+      >
         {post.title}
       </h1>
       <p class="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">{post.excerpt}</p>
