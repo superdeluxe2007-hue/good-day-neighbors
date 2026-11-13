@@ -3,10 +3,11 @@
  * 協力協賛・サポーターの一覧。
  * ロゴ画像が用意できるまでは団体名のテキストで並べる。
  * instagram を渡すとカードごとリンクになる（アカウント名のみ・@は不要）。
+ * website も渡すと、カードの中に「Instagram」「ホームページ」の2つのリンクを並べる。
  */
 const {
   supporters = [
-    { name: "Enlee", instagram: "enlee_fukuyama" },
+    { name: "Enlee", instagram: "enlee_fukuyama", website: "https://enlee-fukuyama.com/" },
     { name: "福山やきそば 村かず", instagram: "murakazu182" },
     { name: "むべやまの里", instagram: "mubeyamanosato" },
     { name: "みっけ", instagram: "mikke_keiko" },
@@ -23,7 +24,31 @@ const items = supporters.map((s) => (typeof s === "string" ? { name: s } : s));
     <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {
         items.map((item) =>
-          item.instagram ? (
+          item.website ? (
+            <div class="flex flex-col items-center justify-center gap-2 rounded-lg border border-border px-4 py-8 text-center">
+              <span class="font-serif text-lg font-semibold">{item.name}</span>
+              <span class="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs">
+                <a
+                  href={item.website}
+                  target="_blank"
+                  rel="noopener"
+                  class="text-muted-foreground underline underline-offset-2 hover:text-foreground"
+                >
+                  ホームページ
+                </a>
+                {item.instagram && (
+                  <a
+                    href={`https://www.instagram.com/${item.instagram}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-muted-foreground underline underline-offset-2 hover:text-foreground"
+                  >
+                    @{item.instagram}
+                  </a>
+                )}
+              </span>
+            </div>
+          ) : item.instagram ? (
             <a
               href={`https://www.instagram.com/${item.instagram}/`}
               target="_blank"

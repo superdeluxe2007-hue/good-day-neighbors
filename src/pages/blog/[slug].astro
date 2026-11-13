@@ -80,6 +80,13 @@ const blogPosting = {
 };
 // 会場が本文に明記されている企画のみ Event として出力する。
 const isEvent = post.venue && (post.category === "event" || post.category === "class");
+// 中央公園で開く、まだ終わっていないイベントにだけ「となりの Enlee」を1行添える。
+// 系列店とは書かず、会場のとなりにあるお店として案内する（2026-11-13 本人判断）。
+// 夜の企画もあるので、ランチの時間帯には寄せずトップページへつなぐ。
+// 日付は "YYYY-MM-DD" の文字列（blog-data.js の hasEnded と同じ判定）。
+const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Tokyo" });
+const showEnleeNote =
+  post.category === "event" && post.venue?.includes("中央公園") && (post.endDate || post.date) >= today;
 const jsonLd = graph(
   organizationSchema(),
   blogPosting,
@@ -204,6 +211,21 @@ const jsonLd = graph(
         <div class="prose-article">
           <Content />
         </div>
+
+        {
+          showEnleeNote && (
+            <p class="mt-10 rounded-lg bg-popover px-5 py-4 text-sm leading-relaxed text-muted-foreground">
+              会場のとなりには、
+              <a
+                href="https://enlee-fukuyama.com/"
+                class="font-medium text-foreground underline underline-offset-2 hover:text-primary"
+              >
+                ガーデンレストラン Enlee
+              </a>
+              があります。お食事や休憩にもご利用ください。
+            </p>
+          )
+        }
 
         {
           post.faq?.length > 0 && (
